@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  appName: 'Go Shopping',
+  firebase: {
+    apiKey: "AIzaSyBhxvE_1ouQrCQYYUMzbcwcBWwmphgA7A0",
+    authDomain: "angular-training-ecom-project.firebaseapp.com",
+    projectId: "angular-training-ecom-project",
+    storageBucket: "angular-training-ecom-project.appspot.com",
+    messagingSenderId: "238493988985",
+    appId: "1:238493988985:web:8db816a7b9704e9025fca8",
+    dbEndPoint: "https://angular-training-ecom-project-default-rtdb.firebaseio.com"
+  },
 };
 
 /*
