@@ -10,40 +10,35 @@ import { NgxSpinnerService } from 'ngx-spinner';
     providedIn: "root",
 })
 export class AuthService {
-    userData: any; // Save logged in user data
+    
+    loggedInUserData: any; // Save logged in user data
+
     constructor(
         private afAuth: AngularFireAuth,
         private router: Router,
         private apiHttpService: ApiHttpService,
         private notify: NotificationService,
         private spinnerService: NgxSpinnerService,
-    ) {
-        /* Saving user data in localstorage when logged in and setting up null when logged out */
-        this.afAuth.authState.subscribe((user) => {
-            if (user) {
-                this.userData = user;
-                localStorage.setItem("user", JSON.stringify(this.userData));
-                JSON.parse(localStorage.getItem("user")!);
-            } else {
-                localStorage.setItem("user", "null");
-                JSON.parse(localStorage.getItem("user")!);
-            }
-        });
-    }
+    ) { }
 
     // Sign in with email/password
     SignIn(email: string, password: string) {
         this.spinnerService.show();
         return this.afAuth
             .signInWithEmailAndPassword(email, password)
-            .then((result) => {
+            .then(async (result) => {
                 this.spinnerService.hide();
-                this.afAuth.authState.subscribe((user) => {
-                    if (user) {
-                        this.notify.showSuccess("Logged in successfully");
+                if (result.user) {
+                    this.loggedInUserData = result.user;
+                    await this.GetUserData(result.user.uid);
+                    this.notify.showSuccess("Logged in successfully");
+                    const user = JSON.parse(localStorage.getItem("user")!);
+                    if(user && user.role === 'admin'){
+                        this.router.navigate(["/admin/dashboard"]);
+                    }else{
                         this.router.navigate(["home"]);
                     }
-                });
+                }
             })
             .catch((error) => {
                 this.spinnerService.hide();
@@ -58,14 +53,17 @@ export class AuthService {
             .createUserWithEmailAndPassword(data.email, data.password!)
             .then((response) => {
                 this.spinnerService.hide();
-                const userData: any = {
-                    uid: response?.user?.uid,
-                    email: response?.user?.email,
-                    name: data.name,
-                    dob: data.dob,
-                    role: data.role ? data.role : "customer",
-                };
-                this.SetUserData(userData);
+                if(response && response.user){
+                    this.loggedInUserData = response.user;
+                    const userData: any = {
+                        uid: response?.user?.uid,
+                        email: response?.user?.email,
+                        name: data.name,
+                        dob: data.dob,
+                        role: data.role ? data.role : "customer",
+                    };
+                    this.SetUserData(userData);
+                }
             })
             .catch((error) => {
                 this.spinnerService.hide();
@@ -79,11 +77,38 @@ export class AuthService {
         return user !== null;
     }
 
+    get getLoggedInUser(): any {
+        return JSON.parse(localStorage.getItem("user")!);
+    }
+
+    StoreUserData(user: any){
+        localStorage.setItem("user", JSON.stringify({...this.loggedInUserData, ...user}));
+    }
+
+    GetUserData(uid: string) {
+        return new Promise(resolve => {
+            this.apiHttpService.get(`/users/${uid}.json`).subscribe({
+                next: (response) => {
+                    this.StoreUserData(response);
+                    resolve('resolved');
+                },
+                error: (response) => {
+                    this.notify.showError(response.error.message);
+                },
+            });
+        });
+    }
+
     SetUserData(data: any) {
-        this.apiHttpService.post("/users.json", data).subscribe({
+        this.apiHttpService.put(`/users/${data.uid}.json`, data).subscribe({
             next: (response) => {
+                this.StoreUserData(response);
                 this.notify.showSuccess("Account created successfully");
-                this.router.navigate(["home"]);
+                if(response && response.role === 'admin'){
+                    this.router.navigate(["/admin/dashboard"]);
+                }else{
+                    this.router.navigate(["home"]);
+                }
             },
             error: (response) => {
                 this.notify.showError(response.error.message);

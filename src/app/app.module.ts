@@ -35,7 +35,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     SharedModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

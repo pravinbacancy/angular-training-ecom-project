@@ -1,0 +1,21 @@
+.container-div{
+    margin: 1% 1% 1% 1%;
+    background-color: whitesmoke;
+    min-height: 83vh;
+    height: auto;
+    padding: 2%;
+    display: flex;
+    margin-bottom: 2%;
+}
+
+.left-content{
+    width: 20%;
+    background-color: white;
+    margin-right: 2%;
+}
+
+.right-content{
+    width: 80%;
+    background-color: white;
+    padding: 2%;
+}

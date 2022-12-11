@@ -13,18 +13,19 @@ import { environment } from 'src/environments/environment';
 export class HeaderComponent implements OnInit {
   
   appName: string = environment.appName;
-  
+  isAdmin: boolean = false;
   constructor(
     private notify: NotificationService,
     private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.getLoggedInUser.role === 'admin' ? true : false;
   }
 
   logout(){
     this.authService.SignOut();
-    this.notify.showSuccess('You have successfully logged out!');
+    this.notify.showSuccess('Logged out!');
   }
 
 }

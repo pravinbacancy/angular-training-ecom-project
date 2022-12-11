@@ -1,0 +1,68 @@
+<section class="mt-1">
+    <div class="container-fluid">
+        <div class="row align-items-center ">
+            <div class="col-md-8">
+                <h3 class="mb-3">Update</h3>
+                <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
+                    <!-- Name input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="name">Name</label>
+                        <input type="text" id="name" class="form-control form-control-md" formControlName="name" placeholder="Enter your name" />
+                        <div *ngIf="submitted && editUserFormControl['name'].errors">
+                            <span class="text-danger" *ngIf="editUserFormControl['name'].errors?.['required']">
+                                Name is required
+                            </span>
+                            <span class="text-danger" *ngIf="editUserFormControl['name'].errors?.['minlength']">
+                                Name must be at least 2 characters
+                            </span>
+                            <span class="text-danger" *ngIf="editUserFormControl['name'].errors?.['maxlength']">
+                                Name must not exceed 100 characters
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="email">Email address</label>
+                        <input type="email" id="email" class="form-control form-control-md" formControlName="email"
+                            placeholder="Enter a valid email address" title="Can Not Change Email" readonly />
+                        <div *ngIf="submitted && editUserFormControl['email'].errors">
+                            <span class="text-danger" *ngIf="editUserFormControl['email'].errors?.['required']">
+                                Email is required
+                            </span>
+                            <span class="text-danger" *ngIf="editUserFormControl['email'].errors?.['email']">
+                                Please, enter valid email address
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Date of birth input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="date_of_birth">Date of birth</label>
+                        <input type="date" id="date_of_birth" class="form-control form-control-md" formControlName="dob"/>
+                        <div *ngIf="submitted && editUserFormControl['dob'].errors">
+                            <span class="text-danger" *ngIf="editUserFormControl['dob'].errors?.['required']">
+                                Date of birth is required
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Role dropdown -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="role">Role</label>
+                        <select id="role" #roleInput formControlName="role" class="form-select">
+                            <option disabled>Select Role</option>
+                            <option *ngFor="let role of roles" [value]="role" [selected]="roleInput"> {{role}} </option>  
+                        </select>
+                        <div *ngIf="submitted && editUserFormControl['role'].errors">
+                            <span class="text-danger" *ngIf="editUserFormControl['role'].errors?.['required']">
+                                Role is required
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="submit" class="btn btn-primary btn-lg"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
