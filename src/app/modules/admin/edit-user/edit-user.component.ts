@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -13,7 +12,7 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 })
 export class EditUserComponent implements OnInit {
 
-  loggedInUserId: string = '';
+  userId: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -24,7 +23,7 @@ export class EditUserComponent implements OnInit {
     private activeRoute: ActivatedRoute
   ) {
     this.activeRoute.params.subscribe(params => {
-      this.loggedInUserId = params['id'];
+      this.userId = params['id'];
     });
   }
 
@@ -64,7 +63,7 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinnerService.show();
-    this.apiHttpService.get(`/users/${this.loggedInUserId}.json`).subscribe((resp) => {
+    this.apiHttpService.get(`/users/${this.userId}.json`).subscribe((resp) => {
       this.spinnerService.hide();
 
       this.editUserForm.patchValue({
@@ -85,8 +84,8 @@ export class EditUserComponent implements OnInit {
     if (this.editUserForm.valid) {
         this.spinnerService.show();
         let formData = this.editUserForm.value;
-        formData.uid = this.loggedInUserId;
-        this.apiHttpService.put(`/users/${this.loggedInUserId}.json`, formData).subscribe((resp) => {
+        formData.uid = this.userId;
+        this.apiHttpService.put(`/users/${this.userId}.json`, formData).subscribe((resp) => {
           this.spinnerService.hide();
           this.notify.showSuccess('User information saved successfully');
           this.router.navigate(["/admin/users"]);

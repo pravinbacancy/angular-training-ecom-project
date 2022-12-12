@@ -1,0 +1,87 @@
+<section class="mt-1">
+    <div class="container-fluid">
+        <div class="row align-items-center ">
+            <div class="col-md-8">
+                <h3 class="mb-3">Update</h3>
+                <form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
+                    <!-- Image input -->
+                    <div class="image-container mt-3 mb-3">
+                        <img [src]="productData.imagePath" [alt]="productData.image">
+                    </div>
+                    <a href="javascript:void(0)" class="btn btn-success btn-sm mt-3 mb-3" (click)="ChangeImage()">{{changeImageButtonText}}</a>
+                    <div class="form-outline mb-4" *ngIf="showFileUpload">
+                        <label class="form-label" for="image">Select Image</label>
+                        <input type="file" id="name" class="form-control form-control-md" formControlName="image" accept=".jpg,.jpeg,.png" (change)="onFileSelected($event)"/>
+                        <div *ngIf="submitted && editProductFormControl['image'].errors">
+                            <span class="text-danger" *ngIf="editProductFormControl['image'].errors?.['required']">
+                                Image is required
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Name input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="name">Name</label>
+                        <input type="text" id="name" class="form-control form-control-md" formControlName="name" placeholder="Enter your name" />
+                        <div *ngIf="submitted && editProductFormControl['name'].errors">
+                            <span class="text-danger" *ngIf="editProductFormControl['name'].errors?.['required']">
+                                Name is required
+                            </span>
+                            <span class="text-danger" *ngIf="editProductFormControl['name'].errors?.['minlength']">
+                                Name must be at least 2 characters
+                            </span>
+                            <span class="text-danger" *ngIf="editProductFormControl['name'].errors?.['maxlength']">
+                                Name must not exceed 100 characters
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Price input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="price">Price</label>
+                        <input type="text" id="price" class="form-control form-control-md" formControlName="price" placeholder="Enter price" />
+                        <div *ngIf="submitted && editProductFormControl['price'].errors">
+                            <span class="text-danger" *ngIf="editProductFormControl['price'].errors?.['required']">
+                                Price is required
+                            </span>
+                            <span class="text-danger" *ngIf="editProductFormControl['price'].errors?.['pattern']">
+                                Price must be number
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Quantity input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="quantity">Quantity</label>
+                        <input type="text" id="quantity" class="form-control form-control-md" formControlName="quantity" placeholder="Enter quantity" />
+                        <div *ngIf="submitted && editProductFormControl['quantity'].errors">
+                            <span class="text-danger" *ngIf="editProductFormControl['quantity'].errors?.['required']">
+                                Quantity is required
+                            </span>
+                            <span class="text-danger" *ngIf="editProductFormControl['quantity'].errors?.['pattern']">
+                                Quantity must be number
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Description input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="description">Description</label>
+                        <textarea class="form-control form-control-md" id="description" formControlName="description" cols="30" rows="5"></textarea>
+                        <div *ngIf="submitted && editProductFormControl['description'].errors">
+                            <span class="text-danger" *ngIf="editProductFormControl['description'].errors?.['required']">
+                                Description is required
+                            </span>
+                            <span class="text-danger" *ngIf="editProductFormControl['description'].errors?.['minlength']">
+                                Description must be at least 2 characters
+                            </span>
+                            <span class="text-danger" *ngIf="editProductFormControl['description'].errors?.['maxlength']">
+                                Description must not exceed 100 characters
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="submit" class="btn btn-primary btn-lg"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

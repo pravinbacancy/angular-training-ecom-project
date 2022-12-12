@@ -22,18 +22,22 @@ export class UsersComponent implements OnInit {
     this.getUserList();
   }
 
-  getUserList(){
+  getUserList() {
     this.apiHttpService.get('/users.json').subscribe(resp => {
-      this.users = Object.values(resp);
+      if (resp) {
+        this.users = Object.values(resp);
+      }
     });
   }
-  async deleteUser(uid: string){ 
-    this.spinnerService.show();
-    this.apiHttpService.delete(`/users/${uid}.json`).subscribe(resp => {
-      this.notify.showSuccess('User deleted successfully');
-      this.spinnerService.hide();
-      this.getUserList();
-    });
+  async deleteUser(uid: string) {
+    if (confirm("Are you sure you want to delete this user?")) {
+      this.spinnerService.show();
+      this.apiHttpService.delete(`/users/${uid}.json`).subscribe(resp => {
+        this.notify.showSuccess('User deleted successfully');
+        this.spinnerService.hide();
+        this.getUserList();
+      });
+    }
   }
 
 }

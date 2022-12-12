@@ -1,1 +1,45 @@
-<p>products works!</p>
+<div class="product-container">
+    <div class="header">
+        <a routerLink="/admin/product/add" class="btn btn-success">Add Product</a>
+    </div>
+    <div class="product-grid mt-5">
+        <h3>Products</h3>
+        <table class="table row-border hover">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.price | currency }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>
+                        <div class="dropdown">
+                            <a class="btn btn-danger dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" [routerLink]="['/admin/product/edit', product.id]">Edit</a>
+                                <a class="dropdown-item" href="javascript:void(0);"
+                                    (click)="deleteProduct(product.id, product.imagePath)">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="!products.length">
+                    <td colspan="5" align="center">
+                        No products found
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

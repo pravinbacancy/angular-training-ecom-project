@@ -34,6 +34,11 @@
                         </div>
                     </td>
                 </tr>
+                <tr *ngIf="!users.length">
+                    <td colspan="5" align="center">
+                        No users found
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

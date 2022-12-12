@@ -12,7 +12,7 @@ export const environment = {
     storageBucket: "angular-training-ecom-project.appspot.com",
     messagingSenderId: "238493988985",
     appId: "1:238493988985:web:8db816a7b9704e9025fca8",
-    dbEndPoint: "https://angular-training-ecom-project-default-rtdb.firebaseio.com"
+    dbEndPoint: "https://angular-training-ecom-project-default-rtdb.firebaseio.com",
   },
 };
 
