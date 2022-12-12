@@ -1,0 +1,32 @@
+.order-text-color {
+  color: #0d6efd;
+}
+.order-theme-bg-color {
+  background-color: #0d6efd;
+}
+.order-green-bg-color {
+  background-color: #4fac2f;
+}
+.order-detail-bg {
+  background-color: #e8e8e8;
+}
+.horizontal-timeline .items {
+  border-top: 2px solid #ddd;
+}
+.horizontal-timeline .items .items-list {
+  position: relative;
+  margin-right: 0;
+}
+.horizontal-timeline .items .items-list:before {
+  content: "";
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: #ddd;
+  top: 0;
+  margin-top: -5px;
+}
+.horizontal-timeline .items .items-list {
+  padding-top: 15px;
+}

@@ -16,6 +16,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { ViewOrderComponent } from './view-order/view-order.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { EditProductComponent } from './edit-product/edit-product.component';
     CreateUserComponent,
     EditUserComponent,
     AddProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    ViewOrderComponent
   ],
   imports: [
     CommonModule,

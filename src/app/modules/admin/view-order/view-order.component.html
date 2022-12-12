@@ -1,0 +1,63 @@
+<section class="">
+  <div class="container">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12">
+        <div class="card border-top border-bottom border-3">
+          <div class="card-body p-5">
+
+            <p class="lead order-text-color fw-bold mb-5">Order Details</p>
+
+            <div class="row">
+              <div class="col mb-3">
+                <p class="small text-muted mb-1">Date</p>
+                <p>{{order.order_date | date }}</p>
+              </div>
+              <div class="col mb-3">
+                <p class="small text-muted mb-1">Order No.</p>
+                <p>{{order.id}}</p>
+              </div>
+            </div>
+
+            <div class="mx-n5 px-5 py-4 order-detail-bg mb-5">
+              <div class="row">
+                <div class="col-md-8 col-lg-9">
+                  <p>{{ order.product.name }}</p>
+                  <small><i>{{ order.product.description }}</i></small>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                  <p>{{ order.product.price | currency }}</p>
+                </div>
+              </div>
+            </div>
+            
+            <p class="lead fw-bold mb-4 pb-2 order-text-color">Tracking Order</p>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="horizontal-timeline">
+                  <ul class="list-inline items d-flex justify-content-between">
+                    <li class="list-inline-item items-list">
+                      <p [ngClass]="order.order_status == 'ordered' ? 'py-1 px-2 rounded text-white order-theme-bg-color' : ''">Ordered</p>
+                      <p [ngClass]="order.order_status == 'ordered' ? 'py-1 px-2 rounded text-white order-green-bg-color' : ''">
+                    </li>
+                    <li class="list-inline-item items-list">
+                      <p [ngClass]="order.order_status == 'shipped' ? 'py-1 px-2 rounded text-white order-theme-bg-color' : ''">Shipped</p>
+                      <p [ngClass]="order.order_status == 'shipped' ? 'py-1 px-2 rounded text-white order-green-bg-color' : ''">
+                    </li>
+                    <li class="list-inline-item items-list">
+                      <p [ngClass]="order.order_status == 'on_the_way' ? 'py-1 px-2 rounded text-white order-theme-bg-color' : ''">On the way</p>
+                      <p [ngClass]="order.order_status == 'on_the_way' ? 'py-1 px-2 rounded text-white order-green-bg-color' : ''"></p>
+                    </li>
+                    <li class="list-inline-item items-list text-end">
+                      <p [ngClass]="order.order_status == 'delivered' ? 'py-1 px-2 rounded text-white order-theme-bg-color' : ''">Delivered</p>
+                      <p [ngClass]="order.order_status == 'delivered' ? 'py-1 px-2 rounded text-white order-green-bg-color' : ''"></p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

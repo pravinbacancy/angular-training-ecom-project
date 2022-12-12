@@ -1,1 +1,50 @@
-<p>orders works!</p>
+<div class="order-container">
+    <div class="order-grid mt-5">
+        <h3>Orders</h3>
+        <table class="table row-border hover">
+            <thead>
+                <tr>
+                    <th>Order Date</th>
+                    <th>Order No</th>
+                    <th>Product Image</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Order Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders">
+                    <th>{{ order.order_date | date }}</th>
+                    <td>{{ order.id }}</td>
+                    <td>
+                        <img [src]="order.product.imagePath" [alt]="order.product.name" width="40" height="40">
+                    </td>
+                    <td>{{ order.product.name }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ order.price | currency }}</td>
+                    <td>{{ order.order_status }}</td>
+                    <td>
+                        <div class="dropdown">
+                            <a class="btn btn-danger dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" [routerLink]="['/admin/order/view', order.id]">View</a>
+                                <a class="dropdown-item" href="javascript:void(0);"
+                                    (click)="deleteOrder(order.id)">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="!orders.length">
+                    <td colspan="8" align="center">
+                        No orders found
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
