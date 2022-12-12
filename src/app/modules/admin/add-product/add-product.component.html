@@ -33,7 +33,7 @@
                     <!-- Price input -->
                     <div class="form-outline mb-4">
                         <label class="form-label" for="price">Price</label>
-                        <input type="text" id="price" class="form-control form-control-md" formControlName="price" placeholder="Enter price" />
+                        <input type="text" id="price" class="form-control form-control-md" formControlName="price" placeholder="Enter price in dollar" />
                         <div *ngIf="submitted && addProductFormControl['price'].errors">
                             <span class="text-danger" *ngIf="addProductFormControl['price'].errors?.['required']">
                                 Price is required
